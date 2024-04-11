@@ -1,6 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:newz_plan/models/news_plan.dart';
+import 'package:newz_plan/tabs_screen.dart';
 
 class PlanScreen extends StatefulWidget {
   const PlanScreen({Key? key}) : super(key: key);
@@ -49,12 +49,14 @@ class _PlanScreenState extends State<PlanScreen> {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 2,
                             blurRadius: 5,
-                            offset: Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
                       child: ListTile(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 16.0),
                         leading: Radio<String>(
                           value: plan.type,
                           groupValue: selectedPlan,
@@ -66,16 +68,16 @@ class _PlanScreenState extends State<PlanScreen> {
                         ),
                         title: Text(
                           plan.type,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         subtitle: Text(
                           plan.note,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                         trailing: Text(
                           '\$${plan.prize}',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         onTap: () {
@@ -90,7 +92,10 @@ class _PlanScreenState extends State<PlanScreen> {
               ),
             ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (ctx) => const TabsScreen()));
+                },
                 style: ElevatedButton.styleFrom(
                     fixedSize: const Size(500, 10),
                     shape: RoundedRectangleBorder(
@@ -105,22 +110,3 @@ class _PlanScreenState extends State<PlanScreen> {
     );
   }
 }
-
-class NewzPlan {
-  final String type;
-  final String note;
-  final String prize;
-
-  NewzPlan({
-    required this.type,
-    required this.note,
-    required this.prize,
-  });
-}
-
-final List<NewzPlan> planList = [
-  NewzPlan(type: "Monthly", note: "One Month Plan", prize: "450"),
-  NewzPlan(type: "Annual", note: "Annual Plan", prize: "45000"),
-  NewzPlan(type: "Two Years", note: "Two Years Plan", prize: "450000"),
-  // Add more subscription plans as needed
-];
